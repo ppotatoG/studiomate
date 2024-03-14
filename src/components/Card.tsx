@@ -1,23 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 const Card: React.FC<CardProps> = ({ pokemon }) => {
-  const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails | null>(
-    null
-  );
-
-  useEffect(() => {
-    fetch(pokemon.url)
-      .then(response => response.json())
-      .then(data => setPokemonDetails(data));
-  }, [pokemon]);
-
   return (
     <div className="max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div className="flex justify-center">
-        <img
-          className="rounded-t-lg"
-          src={pokemonDetails?.sprites?.front_default}
-          alt={pokemon.name}
-        />
+        <img className="rounded-t-lg" src={pokemon.url} alt={pokemon.name} />
       </div>
       <div className="p-5">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
