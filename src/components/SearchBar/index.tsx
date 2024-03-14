@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { GrClose } from 'react-icons/gr';
 
-const SearchBar = () => {
+interface SearchBarProps {
+  searchTerm: string;
+  onSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+const SearchBar = ({ searchTerm, onSearch }: SearchBarProps) => {
   const [showSearch, setShowSearch] = useState(false);
 
   return (
@@ -14,6 +18,8 @@ const SearchBar = () => {
             placeholder="Search..."
             className="form-input w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             autoFocus
+            value={searchTerm}
+            onChange={onSearch}
           />
         )}
       </div>
