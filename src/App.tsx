@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import './App.css';
 import Card from './components/Card';
+import SearchBar from './components/SearchBar';
 
 interface Pokemon {
   name: string;
@@ -58,6 +59,7 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
+      <SearchBar />
       <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 p-2">
         {pokemons.map((pokemon: Pokemon) => (
           <Card key={pokemon.id} pokemon={pokemon} />
