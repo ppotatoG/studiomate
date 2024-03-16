@@ -114,7 +114,6 @@ const App: React.FC = () => {
   return (
     <RecoilRoot>
       <div className="App">
-        {isLoading ? <p>Loading...</p> : <p>Data Loaded</p>}
         <SearchBar searchTerm={searchTerm} onSearch={handleSearchChange} />
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 p-2">
           {filteredPokemons.map((pokemon: Pokemon) => (
