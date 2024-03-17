@@ -115,11 +115,17 @@ const App: React.FC = () => {
     <RecoilRoot>
       <div className="App">
         <SearchBar searchTerm={searchTerm} onSearch={handleSearchChange} />
-        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 p-2">
-          {filteredPokemons.map((pokemon: Pokemon) => (
-            <Card key={pokemon.name} pokemon={pokemon} />
-          ))}
-        </div>
+        {filteredPokemons.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 p-2">
+            {filteredPokemons.map((pokemon: Pokemon) => (
+              <Card key={pokemon.name} pokemon={pokemon} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center p-4 text-gray-600 text-lg">
+            일치하는 데이터가 없습니다
+          </div>
+        )}
       </div>
     </RecoilRoot>
   );
