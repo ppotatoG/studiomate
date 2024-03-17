@@ -4,42 +4,30 @@ interface Pokemon {
   id: string;
 }
 
-interface PokemonDetails {
+interface PokemonSpecies {
   id: number;
-  name: string;
-  base_experience: number;
-  height: number;
-  weight: number;
-  sprites: {
-    front_default: string;
-    [key: string]: string | null;
-  };
-  abilities: Array<{
-    ability: {
-      name: string;
-      url: string;
-    };
-  }>;
-  forms: Array<{
+  names: Array<{
+    language: { name: string; url: string };
     name: string;
-    url: string;
   }>;
-  species: {
+  flavor_text_entries: Array<{
+    flavor_text: string;
+    language: { name: string; url: string };
+  }>;
+  genera: Array<{
+    genus: string;
+    language: { name: string; url: string };
+  }>;
+  color: {
     name: string;
     url: string;
   };
-  stats: Array<{
-    base_stat: number;
-    effort: number;
-    stat: {
-      name: string;
-      url: string;
-    };
-  }>;
-  types: Array<{
-    type: {
-      name: string;
-      url: string;
-    };
-  }>;
+  shape: {
+    name: string;
+    url: string;
+  };
+  habitat: {
+    name: string;
+    url: string;
+  };
 }
