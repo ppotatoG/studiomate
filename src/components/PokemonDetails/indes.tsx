@@ -4,6 +4,7 @@ import { useSetRecoilState } from 'recoil';
 
 import { loadingState } from '../../state/loadingState';
 
+import EvolutionChain from './EvolutionChain';
 import PokedexEntry from './PokedexEntry';
 
 interface PokemonDetailsProps {
@@ -15,6 +16,10 @@ const PokemonDetails = ({ pokemonId, onClose }: PokemonDetailsProps) => {
   const [pokemonDetails, setPokemonDetails] = useState<PokemonSpecies | null>(
     null
   );
+  const [evolutionChain, setEvolutionChain] = useState<EvolutionData | null>(
+    null
+  );
+
   const setIsLoading = useSetRecoilState(loadingState);
 
   useEffect(() => {
@@ -23,11 +28,15 @@ const PokemonDetails = ({ pokemonId, onClose }: PokemonDetailsProps) => {
 
       setIsLoading(true);
       try {
-        const response = await fetch(
+        const speciesResponse = await fetch(
           `https://pokeapi.co/api/v2/pokemon-species/${pokemonId}/`
         );
-        const data = await response.json();
-        setPokemonDetails(data);
+        const speciesData = await speciesResponse.json();
+        setPokemonDetails(speciesData);
+
+        const evolutionResponse = await fetch(speciesData.evolution_chain.url);
+        const evolutionData = await evolutionResponse.json();
+        setEvolutionChain(evolutionData);
       } catch (error) {
         console.error('Error fetching pokemon details:', error);
       } finally {
@@ -38,7 +47,7 @@ const PokemonDetails = ({ pokemonId, onClose }: PokemonDetailsProps) => {
     fetchPokemonDetails();
   }, [pokemonId]);
 
-  if (!pokemonDetails) return null;
+  if (!pokemonDetails || !evolutionChain) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -51,6 +60,10 @@ const PokemonDetails = ({ pokemonId, onClose }: PokemonDetailsProps) => {
         </button>
         <div>
           <PokedexEntry pokemonDetails={pokemonDetails} />
+          <div className="mt-3">
+            <h3 className="font-semibold mb-2">진화 연쇄:</h3>
+            <EvolutionChain evolutionData={evolutionChain} />
+          </div>
         </div>
       </div>
     </div>

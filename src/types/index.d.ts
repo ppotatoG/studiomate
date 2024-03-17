@@ -30,4 +30,19 @@ interface PokemonSpecies {
     name: string;
     url: string;
   };
+  evolution_chain: {
+    url: string;
+  };
+}
+
+interface EvolutionDetail {
+  species: {
+    name: string;
+    url: string;
+  };
+  evolves_to: EvolutionDetail[];
+}
+
+interface EvolutionData {
+  chain: EvolutionDetail;
 }
