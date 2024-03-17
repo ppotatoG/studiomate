@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useRecoilState, RecoilRoot } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import Card from '../../components/Card';
+import PokemonDetails from '../../components/PokemonDetails/indes';
 import SearchBar from '../../components/SearchBar';
 import { loadingState } from '../../state/loadingState';
 
@@ -24,6 +25,8 @@ const Main: React.FC = () => {
   const [isLoading, setIsLoading] = useRecoilState(loadingState);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPokemons, setFilteredPokemons] = useState<Pokemon[]>([]);
+
+  const [pokemonDetails, setPokemonDetails] = useState<number | null>(null);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -112,22 +115,30 @@ const Main: React.FC = () => {
   }, [isLoading, nextUrl]);
 
   return (
-    <RecoilRoot>
-      <div className="App">
-        <SearchBar searchTerm={searchTerm} onSearch={handleSearchChange} />
-        {filteredPokemons.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 p-2">
-            {filteredPokemons.map((pokemon: Pokemon) => (
-              <Card key={pokemon.name} pokemon={pokemon} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center p-4 text-gray-600 text-lg">
-            일치하는 데이터가 없습니다
-          </div>
-        )}
-      </div>
-    </RecoilRoot>
+    <div>
+      <SearchBar searchTerm={searchTerm} onSearch={handleSearchChange} />
+      {filteredPokemons.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 p-2">
+          {filteredPokemons.map((pokemon: Pokemon) => (
+            <Card
+              key={pokemon.name}
+              pokemon={pokemon}
+              onClick={() => setPokemonDetails(Number(pokemon.id))}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="text-center p-4 text-gray-600 text-lg">
+          일치하는 데이터가 없습니다
+        </div>
+      )}
+      {pokemonDetails && (
+        <PokemonDetails
+          pokemonId={pokemonDetails}
+          onClose={() => setPokemonDetails(null)}
+        />
+      )}
+    </div>
   );
 };
 
