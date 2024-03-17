@@ -16,7 +16,7 @@ interface PokemonResponse {
   next: string | null;
 }
 
-const App: React.FC = () => {
+const Main: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [nextUrl, setNextUrl] = useState<string | null>(
     'https://pokeapi.co/api/v2/pokemon?offset=0&limit=40'
@@ -131,4 +131,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Main;
