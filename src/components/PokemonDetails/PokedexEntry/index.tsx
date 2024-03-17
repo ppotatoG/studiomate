@@ -22,11 +22,11 @@ const PokedexEntry = ({
         className="w-32 h-32"
       />
       <h1 className="text-2xl font-bold text-gray-800">{koreanName}</h1>
-      <p className="text-gray-600 mt-2">{koreanFlavorText}</p>
-      <p className="text-gray-600 mt-2">분류: {koreanGenera}</p>
-      <p className="text-gray-600">색깔: {color.name}</p>
-      <p className="text-gray-600">형태: {shape.name}</p>
-      <p className="text-gray-600">서식지: {habitat.name}</p>
+      <p className="text-gray-600 text-sm mb-4">{koreanFlavorText}</p>
+      <p className="text-gray-600 text-sm mb-1">분류: {koreanGenera}</p>
+      <p className="text-gray-600 text-sm mb-1">색깔: {color.name}</p>
+      <p className="text-gray-600 text-sm mb-1">형태: {shape.name}</p>
+      <p className="text-gray-600 text-sm mb-1">서식지: {habitat.name}</p>
     </div>
   );
 };
