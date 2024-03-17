@@ -5,6 +5,7 @@ import Card from '../../components/Card';
 import PokemonDetails from '../../components/PokemonDetails/indes';
 import SearchBar from '../../components/SearchBar';
 import { loadingState } from '../../state/loadingState';
+import { pokemonDetailState } from '../../state/pokemonDetailState';
 
 interface Pokemon {
   name: string;
@@ -23,10 +24,10 @@ const Main: React.FC = () => {
     'https://pokeapi.co/api/v2/pokemon?offset=0&limit=40'
   );
   const [isLoading, setIsLoading] = useRecoilState(loadingState);
+  const [pokemonDetailId, setPokemonDetailId] =
+    useRecoilState(pokemonDetailState);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPokemons, setFilteredPokemons] = useState<Pokemon[]>([]);
-
-  const [pokemonDetails, setPokemonDetails] = useState<number | null>(null);
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -123,7 +124,7 @@ const Main: React.FC = () => {
             <Card
               key={pokemon.name}
               pokemon={pokemon}
-              onClick={() => setPokemonDetails(Number(pokemon.id))}
+              onClick={() => setPokemonDetailId(Number(pokemon.id))}
             />
           ))}
         </div>
@@ -132,10 +133,10 @@ const Main: React.FC = () => {
           일치하는 데이터가 없습니다
         </div>
       )}
-      {pokemonDetails && (
+      {pokemonDetailId && (
         <PokemonDetails
-          pokemonId={pokemonDetails}
-          onClose={() => setPokemonDetails(null)}
+          pokemonId={pokemonDetailId}
+          onClose={() => setPokemonDetailId(null)}
         />
       )}
     </div>

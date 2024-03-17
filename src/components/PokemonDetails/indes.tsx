@@ -60,10 +60,7 @@ const PokemonDetails = ({ pokemonId, onClose }: PokemonDetailsProps) => {
         </button>
         <div>
           <PokedexEntry pokemonDetails={pokemonDetails} />
-          <div className="mt-3">
-            <h3 className="font-semibold mb-2">진화 연쇄:</h3>
-            <EvolutionChain evolutionData={evolutionChain} />
-          </div>
+          <EvolutionChain evolutionData={evolutionChain} onClose={onClose} />
         </div>
       </div>
     </div>
